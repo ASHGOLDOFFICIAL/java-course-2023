@@ -7,13 +7,9 @@ public class Task3 extends Task {
 
     public static boolean isNestable(long[] arr1, long[] arr2) {
 //        Если один из массивов - null, то вложение провести нельзя.
-        if (arr1 == null || arr2 == null) {
-            return false;
-        }
+        if (arr1 == null || arr2 == null) return false;
 //        Если второй массив пуст, то вложение провести можно только при условии, что первый тоже пуст.
-        if (arr2.length == 0) {
-            return (arr1.length == 0);
-        }
+        if (arr2.length == 0) return (arr1.length == 0);
 
         long arr1Min = Long.MAX_VALUE;
         long arr1Max = Long.MIN_VALUE;
