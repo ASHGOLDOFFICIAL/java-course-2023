@@ -3,8 +3,7 @@ package edu.hw1;
 import edu.Task;
 
 public class Task3 extends Task {
-    private Task3() {
-    }
+    private Task3() {}
 
     public static boolean isNestable(long[] arr1, long[] arr2) {
 //        Если один из массивов - null, то вложение провести нельзя.

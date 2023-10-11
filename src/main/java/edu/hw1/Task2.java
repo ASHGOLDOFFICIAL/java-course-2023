@@ -1,8 +1,7 @@
 package edu.hw1;
 
 public class Task2 {
-    private Task2() {
-    }
+    private Task2() {}
 
     public static int countDigits(long num) {
         int count = 0;

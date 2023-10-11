@@ -6,8 +6,7 @@ import java.util.regex.Matcher;
 import edu.Task;
 
 public final class Task1 extends Task {
-    private Task1() {
-    }
+    private Task1() {}
 
     public static long minutesToSeconds(String str) {
 //        Паттерн с допускание строки вида "00:00"
