@@ -12,6 +12,13 @@ target/
 *.iml
 *.ipr
 
+### IntelliJ IDEA - my files ###
+.idea/misc.xml
+.idea/uiDesigner.xml
+.idea/vcs.xml
+.idea/codeStyles/
+.idea/checkstyle-idea.xml
+
 ### Eclipse ###
 .apt_generated
 .classpath
