@@ -7,23 +7,23 @@ import org.junit.jupiter.api.Test;
 
 public class Task2Test {
     @Test
-    @DisplayName("Тест с сайта 1")
+    @DisplayName("Тест из примера 1")
     void test1() {
-        int digits = Task2.countDigits(4666);
+        final int digits = Task2.countDigits(4666);
         assertThat(digits).isEqualTo(4);
     }
 
     @Test
-    @DisplayName("Тест с сайта 2")
+    @DisplayName("Тест из примера 2")
     void test2() {
-        int digits = Task2.countDigits(544);
+        final int digits = Task2.countDigits(544);
         assertThat(digits).isEqualTo(3);
     }
 
     @Test
-    @DisplayName("Тест с сайта 3")
+    @DisplayName("Тест из примера 3")
     void test3() {
-        int digits = Task2.countDigits(0);
+        final int digits = Task2.countDigits(0);
         assertThat(digits).isEqualTo(1);
     }
 }
