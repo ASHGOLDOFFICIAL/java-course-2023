@@ -47,6 +47,7 @@ public class Task5Test {
         boolean bool = Task5.isPalindromeDescendant(9910);
         assertThat(bool).isTrue();
     }
+
     @Test
     @DisplayName("Число 1377")
     void number1377() {
@@ -65,6 +66,13 @@ public class Task5Test {
     @DisplayName("Число 93287")
     void number93287() {
         boolean bool = Task5.isPalindromeDescendant(93287);
+        assertThat(bool).isFalse();
+    }
+
+    @Test
+    @DisplayName("Число 2")
+    void number2() {
+        boolean bool = Task5.isPalindromeDescendant(2);
         assertThat(bool).isFalse();
     }
 }
