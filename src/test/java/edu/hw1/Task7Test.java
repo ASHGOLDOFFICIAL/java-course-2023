@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class Task7Test {
+public final class Task7Test {
     @Test
     @DisplayName("Тест из примера 1")
     void test1() {
@@ -96,6 +96,7 @@ public class Task7Test {
         final int num = Task7.rotateLeft(24, 3);
         assertThat(num).isEqualTo(6);
     }
+
     @Test
     @DisplayName("Сдвиг влево на 101: число 8")
     void rotateLeft8() {

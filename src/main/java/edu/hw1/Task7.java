@@ -2,7 +2,7 @@ package edu.hw1;
 
 import edu.Task;
 
-public class Task7 extends Task {
+public final class Task7 extends Task {
     private Task7() {
     }
 
@@ -10,64 +10,49 @@ public class Task7 extends Task {
         int localNum = n;
         int count = 0;
         while (localNum != 0) {
-            localNum = localNum >>> 1;
+            localNum >>= 1;
             count++;
         }
         return count;
     }
 
-    private static int rotate(int n, int unperiodicShift, int binaryDigitsAmount) {
-/*
-        Создан только цикличсекий сдвиг вправо, потому что циклически сдвигать биты влево - это то же самое, что и
-        сдвигать биты вправо (количество цифр в двоичной записи - непериодические сдвиги) раз.
-
-        Так как, сдвигая биты столько раз, сколько и цифр в числе, мы получаем изначальное число, то будем использовать
-        непериодическое кол-во сдвигов, то есть кол-во сдвигов, из которых вычтем все полные обороты. Очевидно, что
-        таких сдвигов всегда меньше, чем цифр в двоичной записи числа.
-*/
-
-        int localNum = n;
-
-//        Отбрасываем столько цифр в конце числа, сколько нужно сделать сдвигов (т.е от 1 до всех - 1).
-        int shiftedNum = n >>> unperiodicShift;
-
-        for (int i = unperiodicShift; i > 0; i--) {
-/*
-            Берём последнюю цифру из двоичной записи входного числа и смещаем её на (кол-во цифр - текущий сдвиг),
-            т.о. каждая новая цифра сдвигается на одну позицию дальше, тем самым повторяется принцип работы
-            циклического сдвига.
-
-            После этого последняя цифра двоичной записи откидывается. Таким образом, все цифры отброшенные до цикла
-            будут перемещены в начало двоичной записи числа.
-*/
-            shiftedNum += (localNum % 2) << (binaryDigitsAmount - i);
-            localNum /= 2;
-        }
-
-//        LOGGER.info(Integer.toBinaryString(n));
-//        LOGGER.info(Integer.toBinaryString(shiftedNum));
-
-        return shiftedNum;
-    }
-
-/*
-    Далее идут функции-обёртки над основной функцией, в которых меняется лишь количество непериодических сдвигов.
-
-     - Для сдвигов вправо - просто число непериодических сдвигов.
-     - Для сдвигов влево - число, обратное числу непериодических сдвигов. Обратным считается то число, которое в сумме
-       с основным числом даёт количество цифр в двоичной записи. Исключением является ноль (потому что если число
-       непериодических сдвигов равно 0, то сдвигать ничего не надо).
-*/
     public static int rotateRight(int n, int shift) {
         final int binaryDigitsAmount = countBinaryDigits(n);
         final int unperiodicShift = shift % binaryDigitsAmount;
-        return rotate(n, unperiodicShift, binaryDigitsAmount);
+        /*
+         *   1) Берём двоичную запись числа и отбрасываем кол-во бит с конца, равное кол-ву сдвигов.
+         *   2) Берём двоичную запись числа и приписываем к ней нули так, чтобы их кол-во равнялось кол-ву бит в числе,
+         *      полученном выше.
+         *   3) Объединяем биты эти чисел.
+         *   4) Создаём число, которое содержит ноль и столько единиц, сколько и бит в двоичной записи изначального
+         *      числа.
+         *   5) Конъюнкцией двух полученных чисел получаем такое, в котором сохраняется лишь n последних бит,
+         *      где n - число бит в изначальном числе. То есть ею мы обнуляем все разряды, вышедшие за пределы
+         *      кол-ва бит изначального числа.
+         * */
+        final int shiftedNum = ((n >> unperiodicShift)
+                | (n << (binaryDigitsAmount - unperiodicShift)))
+                & ((1 << binaryDigitsAmount) - 1);
+        return shiftedNum;
     }
 
     public static int rotateLeft(int n, int shift) {
         final int binaryDigitsAmount = countBinaryDigits(n);
-        final int unperiodicShiftToRight = shift % binaryDigitsAmount;
-        final int unperiodicShift = (unperiodicShiftToRight != 0) ? binaryDigitsAmount - unperiodicShiftToRight : 0;
-        return rotate(n, unperiodicShift, binaryDigitsAmount);
+        final int unperiodicShift = shift % binaryDigitsAmount;
+        /*
+         *   1) Берём двоичную запись числа и приписываем к ней нули, кол-во которых равно кол-ву сдвигов.
+         *   2) Берём двоичную запись числа и отбрасываем биты с конца так, чтобы в нём осталось кол-во бит, равное
+         *      кол-ву сдвигов.
+         *   3) Объединяем биты эти чисел.
+         *   4) Создаём число, которое содержит ноль и столько единиц, сколько и бит в двоичной записи изначального
+         *      числа.
+         *   5) Конъюнкцией двух полученных чисел получаем такое, в котором сохраняется лишь n последних бит,
+         *      где n - число бит в изначальном числе. То есть ею мы обнуляем все разряды, вышедшие за пределы
+         *      кол-ва бит изначального числа.
+         * */
+        final int shiftedNum = ((n << unperiodicShift)
+                | (n >> (binaryDigitsAmount - unperiodicShift)))
+                & ((1 << binaryDigitsAmount) - 1);
+        return shiftedNum;
     }
 }
