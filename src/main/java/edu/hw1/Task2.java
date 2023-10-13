@@ -12,7 +12,7 @@ public final class Task2 extends Task {
 
         do {
             count++;
-            localNum /= 10;
+            localNum /= DECIMAL_BASE;
         } while (localNum != 0);
 
         return count;

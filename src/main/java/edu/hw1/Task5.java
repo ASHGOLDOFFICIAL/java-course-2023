@@ -23,7 +23,9 @@ public final class Task5 extends Task {
     }
 
     public static boolean isPalindromeDescendant(int num) {
-        if (num < 10) return false;
+        if (num < MIN_PALINDROME) {
+            return false;
+        }
 
         String numString = String.valueOf(num);
         if (isPalindrome(numString)) {
@@ -41,8 +43,8 @@ public final class Task5 extends Task {
 
         while (localNum != 0) {
 //            Берём последнюю цифру числа, затем "выкидываем" её.
-            final int digit = localNum % 10;
-            localNum /= 10;
+            final int digit = localNum % DECIMAL_BASE;
+            localNum /= DECIMAL_BASE;
 
 /*
             Если итерация нечётная, т.е. каждая вторая (начинаем с 0), то суммируем текущую цифру и прошлую,
@@ -59,7 +61,7 @@ public final class Task5 extends Task {
             if (count % 2 == 1) {
                 final int newDigit = lastDigit + digit;
                 newNum = newDigit * decimalShift + newNum;
-                decimalShift *= 10 * ((newDigit / 10 == 1) ? 10 : 1);
+                decimalShift *= DECIMAL_BASE * ((newDigit / DECIMAL_BASE == 1) ? DECIMAL_BASE : 1);
             }
 
             count++;

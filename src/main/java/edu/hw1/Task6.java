@@ -14,14 +14,18 @@ public final class Task6 extends Task {
     }
 
     public static int countK(int num) {
-        if (num <= 1000 || num >= 10000) return -1;
-        if (num == 6174) return 0;
+        if (num <= MIN_FOUR_DIGIT_NUM || num >= MIN_FIVE_DIGIT_NUM) {
+            return -1;
+        }
+        if (num == KAPREKAR_CONST) {
+            return 0;
+        }
 
         int localNum = num;
         ArrayList<Integer> digits = new ArrayList<>();
         while (localNum != 0) {
-            digits.add(localNum % 10);
-            localNum /= 10;
+            digits.add(localNum % DECIMAL_BASE);
+            localNum /= DECIMAL_BASE;
         }
         Collections.sort(digits);
 
@@ -29,8 +33,8 @@ public final class Task6 extends Task {
         int smallerNum = 0;
         int digitsAmount = digits.size();
         for (int i = 0; i < digitsAmount; i++) {
-            biggerNum = biggerNum*10 + digits.get(digitsAmount - 1 - i);
-            smallerNum = smallerNum*10 + digits.get(i);
+            biggerNum = biggerNum * DECIMAL_BASE + digits.get(digitsAmount - 1 - i);
+            smallerNum = smallerNum * DECIMAL_BASE + digits.get(i);
         }
         return 1 + countK(biggerNum - smallerNum);
     }
