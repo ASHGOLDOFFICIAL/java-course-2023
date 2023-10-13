@@ -2,7 +2,9 @@ package edu.hw1;
 
 import edu.Task;
 
-public class Task5 extends Task {
+public final class Task5 extends Task {
+    private static final int MIN_PALINDROME = 11;
+
     private Task5() {
     }
 
@@ -24,8 +26,12 @@ public class Task5 extends Task {
         if (num < 10) return false;
 
         String numString = String.valueOf(num);
-        if (isPalindrome(numString)) return true;
-        if (numString.length() % 2 == 1) return false;
+        if (isPalindrome(numString)) {
+            return true;
+        }
+        if (numString.length() % 2 == 1) {
+            return false;
+        }
 
         int localNum = num;
         int count = 0;

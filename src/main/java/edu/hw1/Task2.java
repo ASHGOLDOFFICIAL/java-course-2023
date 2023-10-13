@@ -1,7 +1,10 @@
 package edu.hw1;
 
-public class Task2 {
-    private Task2() {}
+import edu.Task;
+
+public final class Task2 extends Task {
+    private Task2() {
+    }
 
     public static int countDigits(long num) {
         int count = 0;

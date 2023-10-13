@@ -1,12 +1,12 @@
 package edu.hw1;
 
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-
 import edu.Task;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class Task1 extends Task {
-    private Task1() {}
+    private Task1() {
+    }
 
     public static int minutesToSeconds(String str) {
 //        Паттерн с допускание строки вида "00:00"

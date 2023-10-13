@@ -2,8 +2,9 @@ package edu.hw1;
 
 import edu.Task;
 
-public class Task4 extends Task {
-    private Task4() {}
+public final class Task4 extends Task {
+    private Task4() {
+    }
 
     public static String fixString(String str) {
         final StringBuilder fixedString = new StringBuilder();

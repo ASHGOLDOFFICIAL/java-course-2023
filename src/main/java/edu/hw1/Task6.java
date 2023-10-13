@@ -1,12 +1,17 @@
 package edu.hw1;
 
 import edu.Task;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Task6 extends Task {
-    private Task6() {}
+public final class Task6 extends Task {
+
+    private static final int MIN_FOUR_DIGIT_NUM = 1000;
+    private static final int MIN_FIVE_DIGIT_NUM = 10000;
+    private static final int KAPREKAR_CONST = 6174;
+
+    private Task6() {
+    }
 
     public static int countK(int num) {
         if (num <= 1000 || num >= 10000) return -1;

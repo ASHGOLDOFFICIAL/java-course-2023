@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class Task6Test {
+public final class Task6Test {
     @Test
     @DisplayName("Тест из примера 0")
     void test0() {
