@@ -30,10 +30,9 @@ public final class Task7 extends Task {
          *      где n - число бит в изначальном числе. То есть ею мы обнуляем все разряды, вышедшие за пределы
          *      кол-ва бит изначального числа.
          * */
-        final int shiftedNum = ((n >> unperiodicShift)
+        return ((n >> unperiodicShift)
                 | (n << (binaryDigitsAmount - unperiodicShift)))
                 & ((1 << binaryDigitsAmount) - 1);
-        return shiftedNum;
     }
 
     public static int rotateLeft(int n, int shift) {
@@ -50,9 +49,8 @@ public final class Task7 extends Task {
          *      где n - число бит в изначальном числе. То есть ею мы обнуляем все разряды, вышедшие за пределы
          *      кол-ва бит изначального числа.
          * */
-        final int shiftedNum = ((n << unperiodicShift)
+        return ((n << unperiodicShift)
                 | (n >> (binaryDigitsAmount - unperiodicShift)))
                 & ((1 << binaryDigitsAmount) - 1);
-        return shiftedNum;
     }
 }
