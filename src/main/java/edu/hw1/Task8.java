@@ -5,12 +5,14 @@ import edu.Task;
 public final class Task8 extends Task {
     private static final int BOARD_SIZE = 8;
     private static final int TWELVE_BITS = 2048; // 10 \ 0000 0000 \ 00
+    private static final int TWO_SQUARES_TO_SIDES = 17; // 10001 -> 10x01, где x - это конь (только рядом выше)
+    private static final int ONE_SQUARE_TO_SIDES = 5; // 101 -> 1x1, где x - это конь (только двумя рядами выше)
 
     private Task8() {
     }
 
     public static boolean knightBoardCapture(int[][] board) {
-        if (board == null) {
+        if (board.length != BOARD_SIZE) {
             throw new RuntimeException("Array's length should be 8");
         }
         /*
@@ -38,13 +40,13 @@ public final class Task8 extends Task {
          *   конь, способный захватить эту клетку, а ноль - что ни один конь эту клетку захватить не может. Так как
          *   мы расширили поле вниз на два ряда для ходов коня, то размер массива - 10, а не 8.
          * */
-        int[] rowsInInt = new int[8];
-        int[] canBeCapturedRows = new int[10];
+        int[] rowsInInt = new int[BOARD_SIZE];
+        int[] canBeCapturedRows = new int[BOARD_SIZE + 2];
 
         for (int i = 0; i < BOARD_SIZE; i++) {
             int[] row = board[i];
 
-            if (row.length != 8) {
+            if (row.length != BOARD_SIZE) {
                 throw new IllegalArgumentException("Nested arrays' length should be 8");
             }
 
@@ -70,7 +72,7 @@ public final class Task8 extends Task {
                  * (единичка - конь, а x - клетки рядом ниже, которые он может захватить, \ - граница между основным
                  *  полем и 2-битным расширением).
                  * */
-                capturesOneRowBelow |= (17 * square << j);
+                capturesOneRowBelow |= (TWO_SQUARES_TO_SIDES * square << j);
 
                 /*
                  * Число 5 в двоичной записи - 101. Нам нужно, чтобы второй бит этого числа занял позицию нашего коня,
@@ -81,7 +83,7 @@ public final class Task8 extends Task {
                  *     10 \ 0 0 0 0 0 0 0 0 \ 00
                  *     10 \ x 0 x 0 0 0 x 0 \ x0
                  * */
-                capturesTwoRowsBelow |= (5 * square << (j + 1));
+                capturesTwoRowsBelow |= (ONE_SQUARE_TO_SIDES * square << (j + 1));
                 currentRow |= (square << (j + 2));
             }
 
