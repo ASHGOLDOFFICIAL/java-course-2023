@@ -12,9 +12,6 @@ public final class Task8 extends Task {
     }
 
     public static boolean knightBoardCapture(int[][] board) {
-        if (board.length != BOARD_SIZE) {
-            throw new RuntimeException("Array's length should be 8");
-        }
         /*
          * Я решил попрактиковать побитовые операции, но в результате этого могла пострадать читабельность кода, поэтому
          * далее я буду пытаться объяснять, как данный код работает в комментариях.
@@ -34,19 +31,22 @@ public final class Task8 extends Task {
          * так как они будут обнулены.
          * */
 
+        if (board.length != BOARD_SIZE) {
+            throw new RuntimeException("Array's length should be 8");
+        }
+
         /*
          * int[10] canBeCapturedRows - набор таких чисел, в двоичной записи которых единица обозначает, что существует
          *   конь, способный захватить эту клетку, а ноль - что ни один конь эту клетку захватить не может. Так как
          *   мы расширили поле вниз на два ряда для ходов коня, то размер массива - 10, а не 8.
          * */
-
         int[] canBeCapturedRows = new int[BOARD_SIZE + 2];
 
         /*
-        * Вместо того, что изнутри цикла возвращать true/false, введём на то отдельную переменную, которую вернём в
-        * конце. Сделаем это для того, что проверить все строки на то, чтобы они не были null (должен кинуть
-        * NullPointerException при попытке обращения, как я понял) и на то, чтобы длины массивов были равны 8.
-        * */
+         * Вместо того, что изнутри цикла возвращать true/false, введём на то отдельную переменную, которую вернём в
+         * конце. Сделаем это для того, что проверить все строки на то, чтобы они не были null (должен кинуть
+         * NullPointerException при попытке обращения, как я понял) и на то, чтобы длины массивов были равны 8.
+         * */
         boolean noCaptures = true;
 
         for (int i = 0; i < BOARD_SIZE; i++) {
@@ -68,6 +68,7 @@ public final class Task8 extends Task {
 
             for (int j = 0; j < BOARD_SIZE; j++) {
                 int square = row[j];
+
                 /*
                  * Число 17 в двоичной записи - 10001. Нам нужно, что третий бит этого числа занял позицию нашего коня,
                  * таким образом мы нанесём ходы на один вниз и два в сторону.
@@ -119,7 +120,6 @@ public final class Task8 extends Task {
              *   Третий (ряд 4) - второй ряд на два вниз и третий ряд на один вниз
              *   и так далее.
              * */
-
             canBeCapturedRows[i + 1] |= capturesOneRowBelow;
             canBeCapturedRows[i + 2] |= capturesTwoRowsBelow;
         }
