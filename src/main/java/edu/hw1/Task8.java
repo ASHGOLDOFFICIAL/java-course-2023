@@ -32,7 +32,7 @@ public final class Task8 extends Task {
          * */
 
         if (board.length != BOARD_SIZE) {
-            throw new RuntimeException("Array's length should be 8");
+            throw new IllegalArgumentException("Array's length should be 8");
         }
 
         /*
