@@ -8,7 +8,8 @@ public final class Task8 extends Task {
     private static final int TWO_SQUARES_TO_SIDES = 17; // 10001 -> 10x01, где x - это конь (только рядом выше)
     private static final int ONE_SQUARE_TO_SIDES = 5; // 101 -> 1x1, где x - это конь (только двумя рядами выше)
 
-    private Task8() {}
+    private Task8() {
+    }
 
     public static boolean knightBoardCapture(int[][] board) {
         /*
