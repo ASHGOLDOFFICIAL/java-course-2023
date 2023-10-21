@@ -3,6 +3,7 @@ package edu.hw1;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public final class Task8Test {
@@ -57,7 +58,7 @@ public final class Task8Test {
         assertThat(noCaptures).isFalse();
     }
 
-//    Проверяем, чтобы программа не вылетала при коне в углу
+    //    Проверяем, чтобы программа не вылетала при коне в углу
     @Test
     @DisplayName("Угол: левый верхний")
     void topLeftCorner() {
@@ -74,6 +75,7 @@ public final class Task8Test {
         final boolean noCaptures = Task8.knightBoardCapture(board);
         assertThat(noCaptures).isFalse();
     }
+
     @Test
     @DisplayName("Угол: правый верхний")
     void topRightCorner() {
@@ -90,6 +92,7 @@ public final class Task8Test {
         final boolean noCaptures = Task8.knightBoardCapture(board);
         assertThat(noCaptures).isFalse();
     }
+
     @Test
     @DisplayName("Угол: левый нижний")
     void bottomLeftCorner() {
@@ -106,6 +109,7 @@ public final class Task8Test {
         final boolean noCaptures = Task8.knightBoardCapture(board);
         assertThat(noCaptures).isTrue();
     }
+
     @Test
     @DisplayName("Угол: правый нижний")
     void bottomRightCorner() {
@@ -122,6 +126,7 @@ public final class Task8Test {
         final boolean noCaptures = Task8.knightBoardCapture(board);
         assertThat(noCaptures).isTrue();
     }
+
     @Test
     @DisplayName("Все углы")
     void allCorners() {
@@ -137,5 +142,40 @@ public final class Task8Test {
         };
         final boolean noCaptures = Task8.knightBoardCapture(board);
         assertThat(noCaptures).isTrue();
+    }
+
+    @Test
+    @DisplayName("Недостаточно рядов (меньше 8)")
+    void notEnoughRows() {
+        final int[][] board = {
+                {1, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 1}
+        };
+        assertThatIllegalArgumentException().isThrownBy(
+                () -> Task8.knightBoardCapture(board)
+        ).withMessage("Array's length should be 8");
+    }
+
+    @Test
+    @DisplayName("Недостаточно столбцов (меньше 8)")
+    void notEnoughColumns() {
+        final int[][] board = {
+                {1, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 1, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 1}
+        };
+        assertThatIllegalArgumentException().isThrownBy(
+                () -> Task8.knightBoardCapture(board)
+        ).withMessage("Nested arrays' length should be 8");
     }
 }

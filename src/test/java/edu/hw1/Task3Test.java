@@ -108,4 +108,13 @@ public final class Task3Test {
         final boolean bool = Task3.isNestable(arr1, arr2);
         assertThat(bool).isFalse();
     }
+
+    @Test
+    @DisplayName("Два массива на 10 млн элементов")
+    void massiveArrays() {
+        final long[] arr1 = new long[10000000];
+        final long[] arr2 = new long[10000000];
+        final boolean bool = Task3.isNestable(arr1, arr2);
+        assertThat(bool).isFalse();
+    }
 }
