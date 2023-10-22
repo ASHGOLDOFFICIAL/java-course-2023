@@ -7,8 +7,8 @@ public final class Task2 extends Consts {
     }
 
     public static class Rectangle {
-        private int width;
-        private int height;
+        protected int width;
+        protected int height;
 
         Rectangle setWidth(int width) {
             Rectangle rect = new Rectangle();
@@ -31,7 +31,10 @@ public final class Task2 extends Consts {
 
     public static class Square extends Rectangle {
         Rectangle setSize(int size) {
-            return new Rectangle().setHeight(size).setWidth(size);
+            Square square = new Square();
+            square.height = size;
+            square.width = size;
+            return square;
         }
     }
 }
