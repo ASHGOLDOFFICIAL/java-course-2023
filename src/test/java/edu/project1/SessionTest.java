@@ -19,10 +19,10 @@ public final class SessionTest {
         }
     }
 
-    private static class NormalWordDict implements Dictionary {
+    private static class ValidWordDict implements Dictionary {
         @Override
         public @NotNull String randomWord() {
-            return "Normal";
+            return "cat";
         }
     }
     @Test
@@ -34,15 +34,16 @@ public final class SessionTest {
     @Nested
     @DisplayName("Ввод раннее введённого символа")
     class RepeatedInput {
-        private final Session session = new Session(new NormalWordDict());
+        private final Session session = new Session(new ValidWordDict());
         private final Session.State prevState;
         private final Session.State newState;
+        private final char guess = 'a';
 
         {
-            session.guess('o');
+            session.guess(guess);
             prevState = session.getState();
 
-            session.guess('o');
+            session.guess(guess);
             newState = session.getState();
 
             LOGGER.info(prevState);
@@ -75,14 +76,14 @@ public final class SessionTest {
     @Nested
     @DisplayName("Верная догадка")
     class CorrectGuess {
-        private final Session session = new Session(new NormalWordDict());
+        private final Session session = new Session(new ValidWordDict());
         private final Session.State prevState;
         private final Session.State newState;
+        private final char guess = 'c';
 
         {
             prevState = session.getState();
-
-            session.guess('o');
+            session.guess(guess);
             newState = session.getState();
 
             LOGGER.info(prevState);
@@ -98,7 +99,7 @@ public final class SessionTest {
         @DisplayName("Проверка ответов игрока")
         void checkUserAnswers() {
             assertThat(prevState.userAnswers()).isEmpty();
-            assertThat(newState.userAnswers()).containsExactly('o');
+            assertThat(newState.userAnswers()).containsExactly(guess);
         }
         @Test
         @DisplayName("Сравнение верных догадок")
@@ -116,14 +117,14 @@ public final class SessionTest {
     @Nested
     @DisplayName("Ошибочная догадка")
     class WrongGuess {
-        private final Session session = new Session(new NormalWordDict());
+        private final Session session = new Session(new ValidWordDict());
         private final Session.State prevState;
         private final Session.State newState;
+        private final char guess = 'q';
 
         {
             prevState = session.getState();
-
-            session.guess('q');
+            session.guess(guess);
             newState = session.getState();
 
             LOGGER.info(prevState);
@@ -139,7 +140,7 @@ public final class SessionTest {
         @DisplayName("Проверка ответов игрока")
         void checkUserAnswers() {
             assertThat(prevState.userAnswers()).isEmpty();
-            assertThat(newState.userAnswers()).containsExactly('q');
+            assertThat(newState.userAnswers()).containsExactly(guess);
         }
         @Test
         @DisplayName("Равенство верных догадок")
