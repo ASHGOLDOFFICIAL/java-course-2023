@@ -8,7 +8,6 @@ final class StringArrayToDictionary implements Dictionary {
     private final String[] dict;
 
     StringArrayToDictionary(String[] wordsArray) {
-        String[] filteredWords = Arrays.stream(wordsArray).filter(s -> s.length() > 2).toArray(String[]::new);
         for (String word : wordsArray) {
             if (word.length() <= 2) {
                 throw new IllegalArgumentException("All words must be of length greater than 2.");
