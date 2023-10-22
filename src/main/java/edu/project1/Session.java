@@ -39,7 +39,15 @@ public final class Session {
         }
 
         userAnswers.add(guess);
-        if (guessedWord.indexOf(guess) == -1) {
+        boolean isFoundInWord = false;
+        for (char uniqueChar : wordUniqueChars) {
+            if (uniqueChar == guess) {
+                isFoundInWord = true;
+                break;
+            }
+        }
+
+        if (!isFoundInWord) {
             wrongGuesses++;
             return (wrongGuesses == maxWrongGuesses)
                     ? new GuessResult.Defeat()
@@ -66,7 +74,7 @@ public final class Session {
     }
 
     public boolean isEnd() {
-        return (wrongGuesses == maxWrongGuesses) || (correctGuesses == wordUniqueChars.length);
+        return (wrongGuesses >= maxWrongGuesses) || (correctGuesses >= wordUniqueChars.length);
     }
 
     public String getWord() {
