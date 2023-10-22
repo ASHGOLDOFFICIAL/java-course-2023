@@ -1,8 +1,8 @@
 package edu.hw1;
 
-import edu.Task;
+import edu.Consts;
 
-public final class Task5 extends Task {
+public final class Task5 extends Consts {
     private static final int MIN_PALINDROME = 11;
 
     private Task5() {

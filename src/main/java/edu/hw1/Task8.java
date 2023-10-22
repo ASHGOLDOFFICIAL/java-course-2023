@@ -1,8 +1,8 @@
 package edu.hw1;
 
-import edu.Task;
+import edu.Consts;
 
-public final class Task8 extends Task {
+public final class Task8 extends Consts {
     private static final int BOARD_SIZE = 8;
     private static final int TWELVE_BITS = 2048; // 10 \ 0000 0000 \ 00
     private static final int TWO_SQUARES_TO_SIDES = 17; // 10001 -> 10x01, где x - это конь (только рядом выше)

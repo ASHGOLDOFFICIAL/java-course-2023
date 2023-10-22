@@ -1,8 +1,8 @@
 package edu.hw1;
 
-import edu.Task;
+import edu.Consts;
 
-public final class Task4 extends Task {
+public final class Task4 extends Consts {
     private Task4() {
     }
 
