@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -30,35 +31,126 @@ public final class SessionTest {
         assertThrows(IllegalArgumentException.class, () -> new Session(new IllegalWordDict()));
     }
 
-    @Test
-    @DisplayName("Повторный ввод символа")
-    void repeatedInput() {
-        Session session = new Session(new NormalWordDict());
+    @Nested
+    @DisplayName("Ввод раннее введённого символа")
+    class RepeatedInput {
+        private final Session session = new Session(new NormalWordDict());
+        private final Session.State prevState;
+        private final Session.State newState;
 
-        session.guess('o');
-        Session.State state = session.getState();
-        LOGGER.info(state);
+        {
+            session.guess('o');
+            prevState = session.getState();
 
-        session.guess('o');
-        Session.State newState = session.getState();
-        LOGGER.info(newState);
+            session.guess('o');
+            newState = session.getState();
 
-        assertThat(newState).isEqualTo(state);
+            LOGGER.info(prevState);
+            LOGGER.info(newState);
+        }
+
+        @Test
+        @DisplayName("Равенство масок")
+        void checkWordMask() {
+            assertThat(newState.wordMask()).isEqualTo(prevState.wordMask());
+        }
+        @Test
+        @DisplayName("Равенство ответов игрока")
+        void checkUserAnswers() {
+            assertThat(newState.userAnswers()).containsExactly(prevState.userAnswers());
+        }
+        @Test
+        @DisplayName("Равенство верных догадок")
+        void checkCorrectGuesses() {
+            assertThat(newState.correctGuesses()).isEqualTo(prevState.correctGuesses());
+        }
+
+        @Test
+        @DisplayName("Равенство неверных догадок")
+        void checkWrongGuesses() {
+            assertThat(newState.wrongGuesses()).isEqualTo(prevState.wrongGuesses());
+        }
     }
 
-    @Test
+    @Nested
+    @DisplayName("Верная догадка")
+    class CorrectGuess {
+        private final Session session = new Session(new NormalWordDict());
+        private final Session.State prevState;
+        private final Session.State newState;
+
+        {
+            prevState = session.getState();
+
+            session.guess('o');
+            newState = session.getState();
+
+            LOGGER.info(prevState);
+            LOGGER.info(newState);
+        }
+
+        @Test
+        @DisplayName("Неравенство масок")
+        void checkWordMask() {
+            assertThat(newState.wordMask()).isNotEqualTo(prevState.wordMask());
+        }
+        @Test
+        @DisplayName("Проверка ответов игрока")
+        void checkUserAnswers() {
+            assertThat(prevState.userAnswers()).isEmpty();
+            assertThat(newState.userAnswers()).containsExactly('o');
+        }
+        @Test
+        @DisplayName("Сравнение верных догадок")
+        void checkCorrectGuesses() {
+            assertThat(newState.correctGuesses()).isEqualTo(prevState.correctGuesses() + 1);
+        }
+
+        @Test
+        @DisplayName("Равенство неверных догадок")
+        void checkWrongGuesses() {
+            assertThat(newState.wrongGuesses()).isEqualTo(prevState.wrongGuesses());
+        }
+    }
+
+    @Nested
     @DisplayName("Ошибочная догадка")
-    void wrongGuess() {
-        Session session = new Session(new NormalWordDict());
-        Session.State state = session.getState();
-        LOGGER.info(state);
+    class WrongGuess {
+        private final Session session = new Session(new NormalWordDict());
+        private final Session.State prevState;
+        private final Session.State newState;
 
-        session.guess('q');
-        Session.State newState = session.getState();
-        LOGGER.info(newState);
+        {
+            prevState = session.getState();
 
-        assertThat(newState.wordMask()).isEqualTo(state.wordMask());
-        assertThat(newState.correctGuesses()).isEqualTo(state.correctGuesses());
-        assertThat(newState.wrongGuesses()).isEqualTo(state.wrongGuesses() + 1);
+            session.guess('q');
+            newState = session.getState();
+
+            LOGGER.info(prevState);
+            LOGGER.info(newState);
+        }
+
+        @Test
+        @DisplayName("Равенство масок")
+        void checkWordMask() {
+            assertThat(newState.wordMask()).isEqualTo(prevState.wordMask());
+        }
+        @Test
+        @DisplayName("Проверка ответов игрока")
+        void checkUserAnswers() {
+            assertThat(prevState.userAnswers()).isEmpty();
+            assertThat(newState.userAnswers()).containsExactly('q');
+        }
+        @Test
+        @DisplayName("Равенство верных догадок")
+        void checkCorrectGuesses() {
+            assertThat(newState.correctGuesses()).isEqualTo(prevState.correctGuesses());
+        }
+
+        @Test
+        @DisplayName("Сравнение неверных догадок")
+        void checkWrongGuesses() {
+            assertThat(newState.wrongGuesses()).isEqualTo(prevState.wrongGuesses() + 1);
+        }
     }
 }

@@ -81,9 +81,14 @@ public final class Session {
     }
 
     public State getState() {
-        return new State(this.wordMask, this.userAnswers, this.correctGuesses, this.wrongGuesses);
+        return new State(
+                this.wordMask,
+                this.userAnswers.toArray(new Character[]{}),
+                this.correctGuesses,
+                this.wrongGuesses
+        );
     }
 
-    public record State(String wordMask, ArrayList<Character> userAnswers, int correctGuesses, int wrongGuesses) {
+    public record State(String wordMask, Character[] userAnswers, int correctGuesses, int wrongGuesses) {
     }
 }
