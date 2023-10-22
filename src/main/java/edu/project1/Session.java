@@ -47,17 +47,17 @@ public final class Session {
             }
         }
 
-        if (!isFoundInWord) {
-            wrongGuesses++;
-            return (wrongGuesses == maxWrongGuesses)
-                    ? new GuessResult.Defeat()
-                    : new GuessResult.FailedGuess(wrongGuesses, maxWrongGuesses);
-        } else {
+        if (isFoundInWord) {
             correctGuesses++;
             this.wordMask = updateWordMask(guess);
             return (correctGuesses == wordUniqueChars.length)
                     ? new GuessResult.Win()
                     : new GuessResult.SuccessfulGuess();
+        } else {
+            wrongGuesses++;
+            return (wrongGuesses == maxWrongGuesses)
+                    ? new GuessResult.Defeat()
+                    : new GuessResult.FailedGuess(wrongGuesses, maxWrongGuesses);
         }
     }
 
