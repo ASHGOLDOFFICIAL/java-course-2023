@@ -25,7 +25,7 @@ public final class Task2Test {
     }
 
     @Test
-    @DisplayName("Площади фигур")
+    @DisplayName("Площадь квадрата")
     void squareArea() {
         Task2.Rectangle square = new Task2.Square().setSize(20);
         assertThat(square.area()).isEqualTo(400.0);
