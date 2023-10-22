@@ -24,6 +24,10 @@ public final class PopularCommandExecutor extends Consts {
         this(new DefaultConnectionManager(), attempts);
     }
 
+    public PopularCommandExecutor() {
+        this(new DefaultConnectionManager(), DEFAULT_MAX_ATTEMPTS);
+    }
+
     public void updatePackages() {
         tryExecute("apt update && apt upgrade -y");
     }
