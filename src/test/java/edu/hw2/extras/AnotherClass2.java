@@ -1,4 +1,4 @@
-package edu.hw2.task4test;
+package edu.hw2.extras;
 
 import edu.hw2.Task4;
 

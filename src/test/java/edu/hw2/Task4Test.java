@@ -1,7 +1,7 @@
 package edu.hw2;
 
-import edu.hw2.task4test.AnotherClass1;
-import edu.hw2.task4test.AnotherClass2;
+import edu.hw2.extras.AnotherClass1;
+import edu.hw2.extras.AnotherClass2;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import edu.hw2.Task4.CallingInfo;
@@ -26,7 +26,7 @@ public final class Task4Test {
     @Test
     @DisplayName("Вызов из другого класса при инициализации класса")
     void fromAnotherClassInit() {
-        CallingInfo info = edu.hw2.task4test.AnotherClass1.getInitInfo();
+        CallingInfo info = edu.hw2.extras.AnotherClass1.getInitInfo();
         LOGGER.info(info);
         assertThat(info.className()).isEqualTo(AnotherClass1.class.getName());
         assertThat(info.methodName()).isEqualTo("<clinit>");
@@ -44,7 +44,7 @@ public final class Task4Test {
     @Test
     @DisplayName("Вызов из метода другого класса")
     void fromAnotherClassMethod() {
-        CallingInfo info = edu.hw2.task4test.AnotherClass1.getMethodInfo();
+        CallingInfo info = edu.hw2.extras.AnotherClass1.getMethodInfo();
         LOGGER.info(info);
         assertThat(info.className()).isEqualTo(AnotherClass1.class.getName());
         assertThat(info.methodName()).isEqualTo("getMethodInfo");
