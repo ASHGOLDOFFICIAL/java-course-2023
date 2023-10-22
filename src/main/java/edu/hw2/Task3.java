@@ -1,10 +1,14 @@
 package edu.hw2;
 
 import edu.Task;
-
 import java.util.concurrent.ThreadLocalRandom;
 
 public final class Task3 extends Task {
+    private static final int MAX_PROBABILITY = 100;
+    private static final int HIGH_PROBABILITY = 80;
+    private static final int EVEN_PROBABILITY = 50;
+    private static final int DEFAULT_MAX_ATTEMPTS = 5;
+
     public interface Connection extends AutoCloseable {
         void execute(String command);
     }
@@ -29,9 +33,9 @@ public final class Task3 extends Task {
 
         @Override
         public void execute(String command) {
-            int probability = ThreadLocalRandom.current().nextInt(100);
+            int probability = ThreadLocalRandom.current().nextInt(MAX_PROBABILITY);
 
-            if (probability < 80) {
+            if (probability < HIGH_PROBABILITY) {
                 throw new ConnectionException("FaultyConnection: execution is failed.");
             }
 
@@ -46,10 +50,8 @@ public final class Task3 extends Task {
     public static class DefaultConnectionManager implements ConnectionManager {
         @Override
         public Connection getConnection() {
-            int probability = ThreadLocalRandom.current().nextInt(100);
-
-//            Условимся, что с вероятностью 0,5 будет выпадать плохое подключение, то есть при probability от 0 до 49.
-            return (probability < 50) ? new StableConnection() : new FaultyConnection();
+            int probability = ThreadLocalRandom.current().nextInt(MAX_PROBABILITY);
+            return (probability < EVEN_PROBABILITY) ? new StableConnection() : new FaultyConnection();
         }
     }
 
@@ -71,7 +73,7 @@ public final class Task3 extends Task {
     }
 
     public static final class PopularCommandExecutor {
-        private final int DEFAULT_MAX_ATTEMPTS = 5;
+
         private final ConnectionManager manager;
         private final int maxAttempts;
 
@@ -99,7 +101,7 @@ public final class Task3 extends Task {
             tryExecute("apt update && apt upgrade -y");
         }
 
-//        Добавил этот метод, чтобы IDEA не жаловалась на то, что command всегда равен "apt update..."
+        //        Добавил этот метод, чтобы IDEA не жаловалась на то, что command всегда равен "apt update..."
         public void removePackages() {
             tryExecute("apt autoremove");
         }
