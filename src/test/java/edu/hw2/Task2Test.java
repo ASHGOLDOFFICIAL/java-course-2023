@@ -1,5 +1,6 @@
 package edu.hw2;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -16,6 +17,7 @@ public final class Task2Test {
 
     @ParameterizedTest
     @MethodSource("rectangles")
+    @DisplayName("Площади фигур")
     void rectangleArea(Task2.Rectangle rect) {
         Task2.Rectangle newRect = rect.setWidth(20).setHeight(10);
 

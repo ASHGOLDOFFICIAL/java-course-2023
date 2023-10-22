@@ -1,10 +1,10 @@
 package edu.hw1;
 
-import edu.Task;
+import edu.Consts;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public final class Task6 extends Task {
+public final class Task6 extends Consts {
 
     private static final int MIN_FOUR_DIGIT_NUM = 1000;
     private static final int MIN_FIVE_DIGIT_NUM = 10000;

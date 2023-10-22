@@ -1,10 +1,10 @@
 package edu.hw1;
 
-import edu.Task;
+import edu.Consts;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class Task1 extends Task {
+public final class Task1 extends Consts {
     private Task1() {
     }
 

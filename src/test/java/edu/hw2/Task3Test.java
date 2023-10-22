@@ -2,9 +2,9 @@ package edu.hw2;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import edu.hw2.Task3.PopularCommandExecutor;
-import edu.hw2.Task3.FaultyConnectionManager;
-import edu.hw2.Task3.ConnectionException;
+import edu.hw2.task3.PopularCommandExecutor;
+import edu.hw2.task3.connection_manager.FaultyConnectionManager;
+import edu.hw2.task3.ConnectionException;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;

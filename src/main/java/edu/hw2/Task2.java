@@ -1,8 +1,11 @@
 package edu.hw2;
 
-import edu.Task;
+import edu.Consts;
 
-public final class Task2 extends Task {
+public final class Task2 extends Consts {
+    private Task2() {
+    }
+
     public static class Rectangle {
         private int width;
         private int height;
