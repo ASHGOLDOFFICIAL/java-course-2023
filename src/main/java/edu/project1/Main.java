@@ -5,7 +5,8 @@ final class Main {
     }
 
     public static void main(String[] args) {
-        HangmanConsoleGame game = new HangmanConsoleGame();
+        String[] dictionary = {"cat", "dog", "tinkoff"};
+        HangmanConsoleGame game = new HangmanConsoleGame(new StringArrayToDictionary(dictionary));
         game.run();
     }
 }

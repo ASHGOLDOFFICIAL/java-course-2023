@@ -12,8 +12,13 @@ public final class Session {
     private final int maxWrongGuesses;
     private int wrongGuesses;
 
-    public Session() {
-        this.guessedWord = Dictionary.randomWord();
+    public Session(Dictionary dictionary) {
+        this.guessedWord = dictionary.randomWord().toLowerCase();
+
+        if (guessedWord.length() <= 2) {
+            throw new IllegalArgumentException("Guessed word is less than 2 characters in length.");
+        }
+
         this.wordMask = "*".repeat(guessedWord.length());
         this.wordUniqueChars = guessedWord.chars().distinct().mapToObj(c -> (char) c).toArray(Character[]::new);
 
@@ -22,6 +27,10 @@ public final class Session {
 
         this.maxWrongGuesses = MAX_WRONG_GUESSES;
         this.wrongGuesses = 0;
+    }
+
+    public Session(String[] dictionary) {
+        this(new StringArrayToDictionary(dictionary));
     }
 
     public GuessResult guess(char guess) {
@@ -58,6 +67,10 @@ public final class Session {
 
     public boolean isEnd() {
         return (wrongGuesses == maxWrongGuesses) || (correctGuesses == wordUniqueChars.length);
+    }
+
+    public String getWord() {
+        return this.guessedWord;
     }
 
     public String getWordMask() {

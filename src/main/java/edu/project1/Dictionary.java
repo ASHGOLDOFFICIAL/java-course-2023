@@ -1,15 +1,7 @@
 package edu.project1;
 
-import java.util.concurrent.ThreadLocalRandom;
+import org.jetbrains.annotations.NotNull;
 
-final class Dictionary {
-    private static final String[] DICTIONARY = {"cat", "man", "apple", "appendix"};
-
-    private Dictionary() {
-    }
-
-    public static String randomWord() {
-        int wordIndex = ThreadLocalRandom.current().nextInt(DICTIONARY.length);
-        return DICTIONARY[wordIndex];
-    }
+interface Dictionary {
+    @NotNull String randomWord();
 }
