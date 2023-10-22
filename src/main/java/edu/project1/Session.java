@@ -19,18 +19,13 @@ public final class Session {
             throw new IllegalArgumentException("Guessed word is less than 2 characters in length.");
         }
 
-        this.wordMask = "*".repeat(guessedWord.length());
         this.wordUniqueChars = guessedWord.chars().distinct().mapToObj(c -> (char) c).toArray(Character[]::new);
-
-        this.userAnswers = new ArrayList<>();
-        this.correctGuesses = 0;
-
         this.maxWrongGuesses = MAX_WRONG_GUESSES;
-        this.wrongGuesses = 0;
-    }
 
-    public Session(String[] dictionary) {
-        this(new StringArrayToDictionary(dictionary));
+        this.wordMask = "*".repeat(guessedWord.length());
+        this.correctGuesses = 0;
+        this.wrongGuesses = 0;
+        this.userAnswers = new ArrayList<>();
     }
 
     public GuessResult guess(char guess) {
@@ -83,5 +78,12 @@ public final class Session {
 
     public String getWordMask() {
         return this.wordMask;
+    }
+
+    public State getState() {
+        return new State(this.wordMask, this.userAnswers, this.correctGuesses, this.wrongGuesses);
+    }
+
+    public record State(String wordMask, ArrayList<Character> userAnswers, int correctGuesses, int wrongGuesses) {
     }
 }
