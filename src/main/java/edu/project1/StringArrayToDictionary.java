@@ -1,6 +1,5 @@
 package edu.project1;
 
-import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import org.jetbrains.annotations.NotNull;
 
